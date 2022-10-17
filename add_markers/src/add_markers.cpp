@@ -104,7 +104,7 @@ int main( int argc, char** argv )
           marker.pose.position.x = 13.5;
           marker.pose.position.y = 0.0;
           marker_pub.publish(marker);}
-      }
+      
 
     ros::spinOnce();
     r.sleep();
