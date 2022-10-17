@@ -22,6 +22,8 @@ int main( int argc, char** argv )
      ros::Rate r(1);
      ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
      ros::Subscriber sub_amcl = n.subscribe("amcl_pose", 1000, poseAMCLCallback);
+     
+     ROS_INFO("Odom data: %f, %f", poseAMCLx, poseAMCLy); 
     
      geometry_msgs::Vector3  first_target;
      geometry_msgs::Vector3  second_target;
