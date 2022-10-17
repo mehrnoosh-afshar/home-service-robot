@@ -1,22 +1,17 @@
 #include <ros/ros.h>
 #include <visualization_msgs/Marker.h>
-#include <nav_msgs/Odometry.h>
 #include <geometry_msgs/Vector3.h>
-
-geometry_msgs::Vector3  robot_pose;
-geometry_msgs::Vector3  first_target;
-geometry_msgs::Vector3  second_target;
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
+#include <math.h>
 
 
-
-
-void odom_Callback(const nav_msgs::Odometry::ConstPtr& msg)
-  {
-     robot_pose.x = msg->pose.pose.position.x;
-     robot_pose.y = msg->pose.pose.position.y;   
-     robot_pose.z = msg->pose.pose.orientation.w;
-     
-   }
+double poseAMCLx, poseAMCLy, poseAMCLa;
+void poseAMCLCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msgAMCL)
+{
+    poseAMCLx = msgAMCL->pose.pose.position.x;
+    poseAMCLy = msgAMCL->pose.pose.position.y;
+    poseAMCLa = msgAMCL->pose.pose.orientation.w;   
+}
 
 
 
@@ -26,20 +21,27 @@ int main( int argc, char** argv )
      ros::NodeHandle n;
      ros::Rate r(1);
      ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
-     ros::Subscriber odometry_sub = n.subscribe("odom", 1, odom_Callback);
+     ros::Subscriber sub_amcl = n.subscribe("amcl_pose", 1000, poseAMCLCallback);
+    
+     geometry_msgs::Vector3  first_target;
+     geometry_msgs::Vector3  second_target;
+     
+     float eps = 0.15 ;
+     float dx ,dy ;
+    first_target.x = 11.0;
+    first_target.y = -5.0;
+    first_target.z = 1.0;
 
-    first_target.x = 11;
-    first_target.y = -5;
-    first_target.z = 1;
-
-    second_target.x = 13;
-    second_target.y = 0;
-    second_target.z = 1;
+    second_target.x = 13.0;
+    second_target.y = 0.0;
+    second_target.z = 1.0;
+  
     // Set our initial shape type to be a cube
     uint32_t shape = visualization_msgs::Marker::SPHERE;
    
      while (ros::ok())
      {
+       ros::spinOnce();
        visualization_msgs::Marker marker;
        // Set the frame ID and timestamp.  See the TF tutorials for information on these.
        marker.header.frame_id = "map";
@@ -88,28 +90,35 @@ int main( int argc, char** argv )
        marker.pose.orientation.z = 0.0;
        marker.pose.orientation.w = first_target.z;
        
+       marker_pub.publish(marker);
        
        marker.action = visualization_msgs::Marker::ADD;
-
+       dx = fabs(poseAMCLx- first_target.x);
+       dy = fabs(poseAMCLy- first_target.y);
+       
+       
       
-       if (robot_pose.x  == first_target.x && robot_pose.y  == first_target.y && robot_pose.z  == first_target.z ){
+       if (dx < eps && dy < eps ){
                marker.action = visualization_msgs::Marker::DELETE;
                ros::Duration(5.0).sleep();
+               marker_pub.publish(marker);
        }
-
-       if (robot_pose.x  == second_target.x && robot_pose.y  == second_target.y && robot_pose.z  == second_target.z ){
+       
+       dx = fabs(poseAMCLx- second_target.x);
+       dy = fabs(poseAMCLy- second_target.y);
+       
+       if (dx < eps && dy < eps){
 
           marker.pose.position.x = second_target.x;
           marker.pose.position.y = second_target.y;
-          marker.pose.orientation.w = second_target.z;
           marker.action = visualization_msgs::Marker::ADD;
+          marker_pub.publish(marker);
      
        }
 
   
-      marker_pub.publish(marker);
        
-      ros::spinOnce();
+      
       r.sleep();
       return 0;
     }
