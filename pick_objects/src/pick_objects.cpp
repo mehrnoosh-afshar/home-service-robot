@@ -23,11 +23,11 @@ int main(int argc, char** argv){
   // set up the frame parameters
   goal.target_pose.header.frame_id = "map";
   goal.target_pose.header.stamp = ros::Time::now();
-
+  
+  goal.target_pose.pose.orientation.w = 1.0;
 
   goal.target_pose.pose.position.x = 11.0;
   goal.target_pose.pose.position.y = 5.0;
-  goal.target_pose.pose.orientation = 1.0 ;
 
   // Send the goal position and orientation for the robot to reach
   ROS_INFO("Sending goal");
@@ -46,7 +46,6 @@ int main(int argc, char** argv){
     
   goal.target_pose.pose.position.x = 13.0;
   goal.target_pose.pose.position.y = 0.0;
-  goal.target_pose.pose.orientation = 1.0 ;
 
   // Send the goal position and orientation for the robot to reach
   ROS_INFO("Sending goal");
