@@ -46,7 +46,7 @@ int main(int argc, char** argv){
   ros::Duration(5.0).sleep();
 
   goal.target_pose.pose.position.x = 13.5;
-  goal.target_pose.pose.position.y = -10.0;
+  goal.target_pose.pose.position.y = -6.0;
 
   ROS_INFO("Sending second goal");
   ac.sendGoal(goal);
