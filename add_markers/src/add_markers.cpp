@@ -102,7 +102,7 @@ int main( int argc, char** argv )
      if( (dx < eps) && (dy < eps) ){
           marker.action = visualization_msgs::Marker::ADD;
           marker.pose.position.x = 13.5;
-          marker.pose.position.y = -10.0;
+          marker.pose.position.y = -6.0;
           marker_pub.publish(marker);}
       
 
