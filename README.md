@@ -3,7 +3,7 @@
  When it reached the drop off point, it drops off the object and the blue square appers on the drop off point.
  
  
- Running the Project
+Running the Project
 You need to clone this repo in a catkin_ws and change its name to the src. Write catkin_make in the root directory of catkin_ws to compile it. Write source devel/setup.bash after compiled. To install dependencies of packages write below commands.
 
 $ rosdep -i install gmapping
