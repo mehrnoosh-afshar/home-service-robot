@@ -47,7 +47,7 @@ int main( int argc, char** argv )
 
   // Set the pose of the marker.  This is a full 6DOF pose relative to the frame/time specified in the header
   marker.pose.position.x = 11.0;
-  marker.pose.position.y = -5.0;
+  marker.pose.position.y = 5.0;
   marker.pose.orientation.w = 1.0;
 
 
@@ -102,7 +102,7 @@ int main( int argc, char** argv )
      if( (dx < eps) && (dy < eps) ){
           marker.action = visualization_msgs::Marker::ADD;
           marker.pose.position.x = 13.5;
-          marker.pose.position.y = 0.0;
+          marker.pose.position.y = -10.0;
           marker_pub.publish(marker);}
       
 
