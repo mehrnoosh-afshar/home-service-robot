@@ -1,12 +1,9 @@
 #include <ros/ros.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
-#include <std_msgs/Int32.h>
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
-// Status: 0 = will pick up, 1 = picked up, 2 = dropped off
-std_msgs::Int32 status;
 
 int main(int argc, char** argv){
   ros::init(argc, argv, "pick_objects");
@@ -16,7 +13,6 @@ int main(int argc, char** argv){
   //tell the action client that we want to spin a thread by default
   MoveBaseClient ac("move_base", true);
 
-  ros::Publisher status_pub = n.advertise<std_msgs::Int32>("robot_status", 1);
 
   //wait for the action server to come up
   while(!ac.waitForServer(ros::Duration(5.0))){
@@ -25,16 +21,10 @@ int main(int argc, char** argv){
 
   move_base_msgs::MoveBaseGoal goal;
 
-  //we'll send a goal to the robot to move 1 meter forward
   goal.target_pose.header.frame_id = "map";
   goal.target_pose.header.stamp = ros::Time::now();
-
-
-
   goal.target_pose.pose.orientation.w = 1.0;
   
-
-
   
   goal.target_pose.pose.position.x = 11.0;
   goal.target_pose.pose.position.y = -5.0;
