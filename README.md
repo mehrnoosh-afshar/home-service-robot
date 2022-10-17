@@ -7,9 +7,13 @@ Running the Project
 You need to clone this repo in a catkin_ws and change its name to the src. Write catkin_make in the root directory of catkin_ws to compile it. Write source devel/setup.bash after compiled. To install dependencies of packages write below commands.
 
 $ rosdep -i install gmapping
+
 $ rosdep -i install turtlebot_teleop
+
 $ rosdep -i install turtlebot_rviz_launchers
+
 $ rosdep -i install turtlebot_gazebo
+
 
 
 Packages
