@@ -85,7 +85,7 @@ int main( int argc, char** argv )
 
 
 
-    ROS_INFO("Odom data: %f, %f", poseAMCLx, poseAMCLy);
+    ROS_INFO("ACML data: %f, %f", poseAMCLx, poseAMCLy);
 
 
     marker_pub.publish(marker);
@@ -97,7 +97,7 @@ int main( int argc, char** argv )
           marker_pub.publish(marker);}
  
      dx = fabs(13.5 - poseAMCLx);
-     dy = fabs(0.0 - poseAMCLy);
+     dy = fabs(-6.0 - poseAMCLy);
 
      if( (dx < eps) && (dy < eps) ){
           marker.action = visualization_msgs::Marker::ADD;
