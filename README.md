@@ -28,6 +28,8 @@ slam_gmapping provides SLAM capability in conjunction with the gmapping package.
 The slam_gmapping node takes in sensor_msgs/LaserScan messages and builds a map (nav_msgs/OccupancyGrid).
 
 
+amcl is a probabilistic localization system for a robot moving in 2D. It implements the adaptive (or KLD-sampling) Monte Carlo localization approach (as described by Dieter Fox), which uses a particle filter to track the pose of a robot against a known map. In this progehect the map has been build previously using gmapping package and that one is being used with ACML package. 
+
 turtlebot provides underlying drivers and specifications for the Turtlebot 2 in ROS Kinetic, and also keyboard control functionality for this project.
 
 turtlebot_interactions provides the RViz launcher scripts.
