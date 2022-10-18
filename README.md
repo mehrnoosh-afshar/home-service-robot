@@ -28,12 +28,10 @@ slam_gmapping provides SLAM capability in conjunction with the gmapping package.
 The slam_gmapping node takes in sensor_msgs/LaserScan messages and builds a map (nav_msgs/OccupancyGrid).
 
 
-
-
-
-
 turtlebot provides underlying drivers and specifications for the Turtlebot 2 in ROS Kinetic, and also keyboard control functionality for this project.
+
 turtlebot_interactions provides the RViz launcher scripts.
+
 turtlebot_simulator connects the Turtlebot packages with the Gazebo environment.
 
 # Test_Slam 
