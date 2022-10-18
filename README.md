@@ -27,8 +27,7 @@ First, there are four supporting packages to install for the project.
 slam_gmapping provides SLAM capability in conjunction with the gmapping package. The gmapping package provides laser-based SLAM, as a ROS node called slam_gmapping. Using slam_gmapping, you can create a 2-D occupancy grid map from laser and pose data collected by a mobile robot. 
 The slam_gmapping node takes in sensor_msgs/LaserScan messages and builds a map (nav_msgs/OccupancyGrid).
 
-
-amcl is a probabilistic localization system for a robot moving in 2D. It implements the adaptive (or KLD-sampling) Monte Carlo localization approach (as described by Dieter Fox), which uses a particle filter to track the pose of a robot against a known map. In this progehect the map has been build previously using gmapping package and that one is being used with ACML package. 
+Amcl is a probabilistic localization system for a robot moving in 2D. It implements the adaptive (or KLD-sampling) Monte Carlo localization approach (as described by Dieter Fox), which uses a particle filter to track the pose of a robot against a known map. In this progehect the map has been build previously using gmapping package and that one is being used with ACML package. 
 
 turtlebot provides underlying drivers and specifications for the Turtlebot 2 in ROS Kinetic, and also keyboard control functionality for this project.
 
@@ -37,7 +36,8 @@ turtlebot_interactions provides the RViz launcher scripts.
 turtlebot_simulator connects the Turtlebot packages with the Gazebo environment.
 
 # Test_Slam 
-The test_slam.sh script simply launches Gazebo with the home environment, places a turtlebot in it and launches the slam_gmapping nodes. The user can move the robot in the environment using keyboard as in turtlebot_teleop. Run this script to verify that the packages and dependencies have been installed correctly.
+The test_slam.sh script simply launches Gazebo with the home environment, places a turtlebot in it and launches the gmapping_demo.launch from turtlebot_gazebo package.
+With the gmapping_demo.launch file, we can easily perform SLAM and build a map of  the environment with a robot equipped with laser range finder sensors or RGB-D cameras. gmapping_demo.launch file run gmapping node to build the map and doing the localization. The user can move the robot in the environment using keyboard as in turtlebot_teleop. Run this script to verify that the packages and dependencies have been installed correctly.
 
 # Test Navigation
 The tesst_navigation.sh script builds on top of the test_slam.sh script and enables the robot to reach a goal pose designated by the user in RViz through the amcl package.
